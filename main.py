@@ -17,7 +17,16 @@ def main():
     chikarego_font = ImageFont.truetype("ChiKareGo.ttf", 16)
     leco_font = ImageFont.truetype("leco.ttf", 16)
 
-    date_title = datetime.strftime(datetime.now(), "%A %d %B")
+    now = datetime.now()
+    day_of_week = datetime.strftime(now, "%A")
+    day_of_month = datetime.strftime(now, "%d")
+    if 4 <= int(day_of_month) <= 20 or 24 <= int(day_of_month) <= 30:
+        suffix = "th"
+    else:
+        suffix = ["st", "nd", "rd"][int(day_of_month) % 10 - 1]
+
+    month = datetime.strftime(now, "%B")
+    date_title = f"{day_of_week} {day_of_month}{suffix} {month}"
     draw.text((0, 0), date_title, display.BLACK, font=chikarego_font)
 
     starting_event_y_coords = 30
