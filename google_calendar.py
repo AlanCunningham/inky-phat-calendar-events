@@ -81,18 +81,23 @@ def get_todays_events():
         now = datetime.now(tz=local_timezone)
         tomorrow = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0)
 
-        todays_events = []
+        all_day_events = []
+        timed_events = []
 
         for event in events:
             if "dateTime" in event["start"]:
                 event_datetime = datetime.fromisoformat(event["start"]["dateTime"])
                 if event_datetime < tomorrow:
                     event_time = datetime.strftime(event_datetime, "%H:%M")
-                    todays_events.append((event_time, event["summary"]))
+                    timed_events.append((event_time, event["summary"]))
+            else:
+                # All day events
+                all_day_events.append(event["summary"])
 
-        print(todays_events)
+        print(all_day_events)
+        print(timed_events)
 
-        return todays_events
+        return all_day_events, timed_events
 
     except HttpError as error:
         print(f"An error occurred: {error}")
