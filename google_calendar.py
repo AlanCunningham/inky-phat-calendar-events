@@ -92,7 +92,9 @@ def get_todays_events():
                     timed_events.append((event_time, event["summary"]))
             else:
                 # All day events
-                all_day_events.append(event["summary"])
+                event_date = datetime.strptime(event["start"]["date"], "%Y-%m-%d")
+                if event_date.replace(tzinfo=local_timezone) < tomorrow:
+                    all_day_events.append(event["summary"])
 
         print(all_day_events)
         print(timed_events)
