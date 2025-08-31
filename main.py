@@ -35,7 +35,7 @@ def main():
 
     if all_day_events or timed_events:
         starting_event_y_coords = 25
-        max_summary_character_length = 23
+        max_summary_character_length = 26
         gap_between_events = 17
 
         # All day events
