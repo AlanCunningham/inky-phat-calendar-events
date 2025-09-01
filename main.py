@@ -21,6 +21,12 @@ def main():
     now = datetime.now()
     day_of_week = datetime.strftime(now, "%A")
     day_of_month = datetime.strftime(now, "%d")
+
+    # Remove zero-padding from day of month
+    if day_of_month[0] == "0":
+        day_of_month = day_of_month[1]
+
+    # Add suffix to day of month
     if 4 <= int(day_of_month) <= 20 or 24 <= int(day_of_month) <= 30:
         suffix = "th"
     else:
