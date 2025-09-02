@@ -12,6 +12,8 @@ def main():
     width = 212
     height = 104
 
+    display.set_border(display.WHITE)
+
     all_day_events, timed_events = google_calendar.get_todays_events()
 
     image = Image.new(mode="RGB", size=display.resolution, color=(255, 255, 255))
