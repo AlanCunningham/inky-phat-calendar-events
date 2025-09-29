@@ -14,8 +14,6 @@ def main():
 
     display.set_border(display.WHITE)
 
-    all_day_events, timed_events = google_calendar.get_todays_events()
-
     image = Image.new(mode="RGB", size=display.resolution, color=(255, 255, 255))
     draw = ImageDraw.Draw(image)
     chikarego_font = ImageFont.truetype("ChiKareGo.ttf", 16)
@@ -40,6 +38,21 @@ def main():
     month = datetime.strftime(now, "%B")
     date_title = f"{day_of_week} {day_of_month}{suffix} {month}"
     draw.text((0, 0), date_title, display.BLACK, font=chikarego_font)
+
+    try:
+        all_day_events, timed_events = google_calendar.get_todays_events()
+    except Exception as exc:
+        print(exc)
+        draw.text(
+            (width / 2, height / 2),
+            "Token has expired",
+            display.BLACK,
+            anchor="mm",
+            font=chikarego_font,
+        )
+        display.set_image(image)
+        display.show()
+        return
 
     if all_day_events or timed_events:
         starting_event_y_coords = 25
